@@ -1,3 +1,4 @@
 # requirements.txt
 python-dotenv
 discord.py
+discord-webhook
