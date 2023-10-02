@@ -5,18 +5,33 @@ from discord_webhook import DiscordWebhook
 
 load_dotenv()
 
-endpoint = "https://api.wartezeiten.app/v1/waitingtimes"
+# Global defintions
+subscribedAttractions = ["383533", "383530", "323530", "323030", "353030", "393030"]
+waitingtimeAlert = 30
 
-header = {
-    "language":"de",
-    "park":"europapark"
-}
+# Functions
+def sendMessage(message):
+    webhookUrl = os.getenv('DISCORD_WEBHOOK')
+    webhook = DiscordWebhook(url=webhookUrl, content=message)
+    response = webhook.execute()
 
-req = requests.get(url = endpoint, params = header)
+def checkTimes(subscribedAttractions, alertlimit):
+    endpoint = "https://api.wartezeiten.app/v1/waitingtimes"
 
-result = req.json()
+    header = {
+        "language":"de",
+        "park":"europapark"
+    }
 
-webhookUrl = os.getenv('DISCORD_WEBHOOK')
+    req = requests.get(url = endpoint, headers = header)
+    result = req.json()
+    attractions = result
+    for attraction in attractions:
+        if attraction["code"] in subscribedAttractions:
+            if attraction["waitingtime"] < waitingtimeAlert and attraction["status"] == "opened":
+                sendMessage(f"Waiting time of {attraction['name']} less than {waitingtimeAlert} Minutes!")
 
-webhook = DiscordWebhook(url=webhookUrl, content=result["error"])
-response = webhook.execute()
+# Main
+if __name__ == '__main__':
+    checkTimes(subscribedAttractions, waitingtimeAlert)
+
