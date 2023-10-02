@@ -18,5 +18,5 @@ result = req.json()
 
 webhookUrl = os.getenv('DISCORD_WEBHOOK')
 
-webhook = DiscordWebhook(url=webhookUrl, content=result)
+webhook = DiscordWebhook(url=webhookUrl, content=result["error"])
 response = webhook.execute()
