@@ -2,6 +2,7 @@ import requests
 import os
 from dotenv import load_dotenv
 from discord_webhook import DiscordWebhook
+import time
 
 load_dotenv()
 
@@ -33,5 +34,8 @@ def checkTimes(subscribedAttractions, alertlimit):
 
 # Main
 if __name__ == '__main__':
-    checkTimes(subscribedAttractions, waitingtimeAlert)
+    while True:
+        checkTimes(subscribedAttractions, waitingtimeAlert)
+        print(f"Checked for updates at {time.strftime('%H:%M:%S', time.localtime())}")
+        time.sleep(30)
 
