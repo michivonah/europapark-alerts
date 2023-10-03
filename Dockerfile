@@ -6,6 +6,7 @@ WORKDIR /app/
 
 # Copy files
 COPY main.py .
+COPY requirements.txt .
 
 # Set enviromental variables
 ENV DISCORD_WEBHOOK "https://discord.com/api/webhooks/XXXXXXXXXXXXXX/YYYYYYYYYYYYYYYYYYYYYYYYY"
