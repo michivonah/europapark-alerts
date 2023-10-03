@@ -1,3 +1,7 @@
+# Europapark Waiting Time alerts to Discord
+# Michi von Ah - October 2023
+# Thanks to https://www.wartezeiten.app/ for their API
+
 import requests
 import os
 from dotenv import load_dotenv
@@ -10,12 +14,13 @@ load_dotenv()
 subscribedAttractions = ["383533", "383530", "323530", "323030", "353030", "393030"]
 currentTimes = {}
 
-# Functions
+# Send messagess via Discord Webhook
 def sendMessage(message):
     webhookUrl = os.getenv('DISCORD_WEBHOOK')
     webhook = DiscordWebhook(url=webhookUrl, content=message)
     response = webhook.execute()
 
+# Check for the current waiting times
 def checkTimes(subscribedAttractions):
     endpoint = "https://api.wartezeiten.app/v1/waitingtimes"
 
@@ -37,8 +42,12 @@ def checkTimes(subscribedAttractions):
                     sendMessage(f"Waiting time for {attraction['name']} increased to {attraction['waitingtime']} Minutes!")
                 currentTimes[attraction["code"]] = attraction["waitingtime"]
 
-# Main
+# Main Loop
+# Checks every 30 seconds for changes in the waiting times of the subscribed attractions
 if __name__ == '__main__':
+    print("EP Waiting Time Alerting Tool")
+    print("By Michi von Ah")
+    print("Big thanks to the wartezeiten.app API!")
     while True:
         checkTimes(subscribedAttractions)
         print(f"Checked for updates at {time.strftime('%H:%M:%S', time.localtime())}")
