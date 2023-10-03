@@ -8,7 +8,7 @@ load_dotenv()
 
 # Global defintions
 subscribedAttractions = ["383533", "383530", "323530", "323030", "353030", "393030"]
-waitingtimeAlert = 30
+currentTimes = {}
 
 # Functions
 def sendMessage(message):
@@ -16,7 +16,7 @@ def sendMessage(message):
     webhook = DiscordWebhook(url=webhookUrl, content=message)
     response = webhook.execute()
 
-def checkTimes(subscribedAttractions, alertlimit):
+def checkTimes(subscribedAttractions):
     endpoint = "https://api.wartezeiten.app/v1/waitingtimes"
 
     header = {
@@ -29,13 +29,18 @@ def checkTimes(subscribedAttractions, alertlimit):
     attractions = result
     for attraction in attractions:
         if attraction["code"] in subscribedAttractions:
-            if attraction["waitingtime"] < waitingtimeAlert and attraction["status"] == "opened":
-                sendMessage(f"Waiting time of {attraction['name']} less than {waitingtimeAlert} Minutes!")
+            if attraction["status"] == "opened":
+                if not attraction["code"] in currentTimes: currentTimes[attraction["code"]] = attraction["waitingtime"];
+                if currentTimes[attraction["code"]] > attraction["waitingtime"]:
+                    sendMessage(f"Waiting time of {attraction['name']} sank to {attraction['waitingtime']} Minutes!")
+                elif currentTimes[attraction["code"]] < attraction["waitingtime"]:
+                    sendMessage(f"Waiting time for {attraction['name']} increased to {attraction['waitingtime']} Minutes!")
+                currentTimes[attraction["code"]] = attraction["waitingtime"]
 
 # Main
 if __name__ == '__main__':
     while True:
-        checkTimes(subscribedAttractions, waitingtimeAlert)
+        checkTimes(subscribedAttractions)
         print(f"Checked for updates at {time.strftime('%H:%M:%S', time.localtime())}")
         time.sleep(30)
 
