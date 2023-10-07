@@ -18,4 +18,6 @@ These environment variables are supported
 | Variable | Description | Example |
 | --- | --- | --- |
 | DISCORD_WEBHOOK | The URL of your discord webhook | ``https://discord.com/api/webhooks/XXXXXXXXXXXXXX/YYYYYYYYYYYYYYYYYYYYYYYYY`` |
-| SUBS | Your subscribed attractions with ID from wartezeiten.app API | ``"383533, 323530, 353030"`` |
+| SUBS | Your subscribed attractions with ID from wartezeiten.app API | ``383533,323530,353030`` |
+
+> Required enviromental variables: DISCORD_WEBHOOK, SUBS

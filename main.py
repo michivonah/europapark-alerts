@@ -11,7 +11,7 @@ import time
 load_dotenv()
 
 # Global defintions
-subscribedAttractions = ["383533", "383530", "323530", "323030", "353030", "393030"]
+subscribedAttractions = os.getenv('SUBS').split(",")
 currentTimes = {}
 refreshTime = 30
 
@@ -20,6 +20,7 @@ def sendMessage(message):
     webhookUrl = os.getenv('DISCORD_WEBHOOK')
     webhook = DiscordWebhook(url=webhookUrl, content=message)
     response = webhook.execute()
+    return response
 
 # Check for the current waiting times
 def checkTimes(subscribedAttractions):
@@ -48,6 +49,7 @@ def checkTimes(subscribedAttractions):
 
 # Main Loop
 # Checks every 30 seconds for changes in the waiting times of the subscribed attractions
+# If some attractions are closed the check will only be executed every 180 seconds
 if __name__ == '__main__':
     print("EP Waiting Time Alerting Tool")
     print("By Michi von Ah")
