@@ -10,7 +10,7 @@ Host it on your server:
     ```apt-get install docker.io docker-compose -y```
 2. Run container (don't forget to change your discord webhook url)
 
-    ```docker run -d --name ep-alerts --env DISCORD_WEBHOOK="https://discord.com/api/webhooks/XXXXXXXXXXXXXX/YYYYYYYYYYYYYYYYYYYYYYYYY" michivonah/ep-alerts```
+    ```docker run -d --name ep-alerts --env DISCORD_WEBHOOK="https://discord.com/api/webhooks/XXXXXXXXXXXXXX/YYYYYYYYYYYYYYYYYYYYYYYYY" --env SUBS=383533,323530,353030 michivonah/ep-alerts```
 
 ## Enviormental variables
 These environment variables are supported
