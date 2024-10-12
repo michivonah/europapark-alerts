@@ -1,7 +1,8 @@
 # Themepark Wait Time Alerts
+![](media/banner.jpg)
 A tool which alerts you when the waiting times of subscribed attractions in your favourite themepark sinks or increase. The notifications are sent to a Discord webhook or to your ntfy-server. Powered by the [wartezeiten.app](https://www.wartezeiten.app/page/api.html) API.
 
-GitHub: https://github.com/michivonah/europapark-alerts <br>
+GitHub: https://github.com/michivonah/themepark-alerts <br>
 Docker: https://hub.docker.com/r/michivonah/ep-alerts
 
 Host it on your own server:
