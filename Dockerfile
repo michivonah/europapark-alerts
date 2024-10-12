@@ -1,4 +1,4 @@
-FROM python:3.11
+FROM python:3.12
 
 # Create directory
 RUN mkdir app
@@ -11,6 +11,7 @@ COPY requirements.txt .
 # Set enviromental variables
 ENV DISCORD_WEBHOOK "https://discord.com/api/webhooks/XXXXXXXXXXXXXX/YYYYYYYYYYYYYYYYYYYYYYYYY"
 ENV SUBS "383533, 323530, 353030"
+ENV NOTIFICATION_TYPE "discord"
 
 # Install needed packages
 RUN pip3 install --upgrade pip
