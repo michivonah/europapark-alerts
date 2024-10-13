@@ -80,7 +80,7 @@ def checkTimes(subscribedAttractions, themepark):
                     else:
                         refreshTime = 180
             else:
-                print(f"Info: Attraction was skipt because it has an invalid data structure. Affacted attraction: {attraction}")
+                print(f"Info: Attraction was skipped because it has an invalid data structure. Affected attraction: {attraction}")
     except Exception as error:
         raise Exception(f"Got an error while checking for differences since the last API call. Error: {error}")
 
